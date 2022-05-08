@@ -45,6 +45,23 @@ async function run(){
              res.send(addItems);
          })
 
+         //update user
+
+         app.put('/items/:id', async (req, res)=>{
+             const id = req.params.id;
+             const updatedItems= req.body;
+             const query = {_id: ObjectId(id)};
+             const options = {upsert: true};
+             const updateItems = {
+                 $set: {
+                     updatedItems
+                 }
+             }
+             const result = await itemsCollection.updateOne(query,updateItems,options);
+             res.send(result);
+
+         })
+
 
       }finally{
 
